@@ -4,8 +4,6 @@ markdown
 
 A feature-rich, real-time chat application built with PHP, SQLite, and JavaScript. This single-file application includes user authentication, private messaging, video/audio calls, profile management, and offline message support.
 
-![Chat Application Preview](https://via.placeholder.com/800x400?text=Chat+Application+Preview)
-
 ## 🚀 Features
 
 ### 💬 Messaging
