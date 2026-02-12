@@ -51,43 +51,6 @@ A feature-rich, real-time chat application built with PHP, SQLite, and JavaScrip
 - FileInfo PHP extension
 - Web browser with WebRTC support (Chrome, Firefox, Safari, Edge)
 
-## ⚡ Quick Installation
-
-### Method 1: Direct Download
-
-1. **Create a new directory:**
-```bash
-mkdir chat-app
-cd chat-app
-Create the main file:
-
-bash
-touch index.php
-Copy the entire application code from the provided single-file solution into index.php
-
-Start PHP server:
-
-bash
-php -S localhost:8000
-Open your browser:
-
-text
-http://localhost:8000
-Method 2: Using Git
-bash
-git clone https://github.com/yourusername/chat-app.git
-cd chat-app
-php -S localhost:8000
-📁 Project Structure
-text
-chat-app/
-│
-├── index.php              # Main application file (everything in one file)
-├── chat_app.db            # SQLite database (auto-generated)
-├── uploads/               # Profile pictures directory (auto-created)
-│   ├── default.jpg        # Default profile picture
-│   └── [user_uploads]     # User uploaded profile pictures
-└── README.md              # This file
 🎯 Usage Guide
 1. Registration
 Open the application in your browser
