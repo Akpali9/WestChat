@@ -341,7 +341,7 @@ if ($action == 'api_end_call') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Chat Application</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -354,16 +354,21 @@ if ($action == 'api_end_call') {
 
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .app-container {
+            width: 100%;
             max-width: 1400px;
-            margin: 20px auto;
+            margin: 10px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            height: calc(100vh - 40px);
+            height: calc(100vh - 20px);
             overflow: hidden;
         }
 
@@ -373,13 +378,14 @@ if ($action == 'api_end_call') {
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 15px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         .auth-card {
             background: white;
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px 20px;
             width: 100%;
             max-width: 450px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
@@ -388,7 +394,7 @@ if ($action == 'api_end_call') {
 
         @keyframes slideIn {
             from {
-                transform: translateY(-50px);
+                transform: translateY(-30px);
                 opacity: 0;
             }
             to {
@@ -399,16 +405,17 @@ if ($action == 'api_end_call') {
 
         .auth-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .auth-header h2 {
             color: #667eea;
             font-weight: 600;
+            font-size: clamp(1.5rem, 5vw, 2rem);
         }
 
         .auth-header i {
-            font-size: 50px;
+            font-size: clamp(40px, 8vw, 50px);
             color: #667eea;
             margin-bottom: 10px;
         }
@@ -422,18 +429,20 @@ if ($action == 'api_end_call') {
         .chat-container {
             display: flex;
             height: 100%;
+            position: relative;
         }
 
         .sidebar {
-            width: 30%;
+            width: 350px;
             background: #f8f9fa;
             border-right: 1px solid #dee2e6;
             display: flex;
             flex-direction: column;
+            transition: all 0.3s ease;
         }
 
         .user-profile {
-            padding: 20px;
+            padding: 15px;
             border-bottom: 1px solid #dee2e6;
             background: white;
         }
@@ -441,33 +450,40 @@ if ($action == 'api_end_call') {
         .user-info {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .profile-pic {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #667eea;
         }
 
         .user-details {
-            margin-left: 15px;
             flex: 1;
+            min-width: 0;
         }
 
         .user-details h6 {
             margin: 0;
             font-weight: 600;
+            font-size: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .user-details small {
             color: #6c757d;
+            font-size: 0.8rem;
         }
 
         .action-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .action-btn {
@@ -487,15 +503,15 @@ if ($action == 'api_end_call') {
         .users-list {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 15px;
         }
 
         .user-item {
             display: flex;
             align-items: center;
-            padding: 15px;
+            padding: 12px;
             border-radius: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             background: white;
             cursor: pointer;
             transition: all 0.3s;
@@ -513,9 +529,29 @@ if ($action == 'api_end_call') {
             border-color: #667eea;
         }
 
+        .user-item .profile-pic {
+            width: 40px;
+            height: 40px;
+        }
+
+        .user-info-text {
+            margin-left: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-info-text h6 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         .online-status {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             display: inline-block;
             margin-right: 5px;
@@ -533,22 +569,24 @@ if ($action == 'api_end_call') {
         .unread-badge {
             background: #ffc107;
             color: #000;
-            padding: 3px 8px;
-            border-radius: 15px;
+            padding: 2px 6px;
+            border-radius: 12px;
             font-size: 0.7rem;
-            margin-left: 10px;
+            margin-left: 8px;
+            white-space: nowrap;
         }
 
         /* Chat Area Styles */
         .chat-area {
-            width: 70%;
+            flex: 1;
             display: flex;
             flex-direction: column;
             background: white;
+            min-width: 0;
         }
 
         .chat-header {
-            padding: 20px;
+            padding: 15px;
             border-bottom: 1px solid #dee2e6;
             display: flex;
             justify-content: space-between;
@@ -556,18 +594,44 @@ if ($action == 'api_end_call') {
             background: white;
         }
 
+        .chat-header .d-flex {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .chat-header .profile-pic {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+        }
+
+        .chat-header h5 {
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0;
+        }
+
         .call-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
+            flex-shrink: 0;
         }
 
         .call-btn {
-            padding: 8px 15px;
+            padding: 6px 12px;
             border: none;
             border-radius: 20px;
             color: white;
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .call-btn i {
+            margin-right: 5px;
         }
 
         .call-btn:hover {
@@ -585,13 +649,13 @@ if ($action == 'api_end_call') {
         .messages-container {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 15px;
             background: #f8f9fa;
         }
 
         .message {
             display: flex;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             animation: fadeIn 0.3s ease;
         }
 
@@ -609,11 +673,12 @@ if ($action == 'api_end_call') {
         }
 
         .message-content {
-            max-width: 70%;
-            padding: 12px 18px;
-            border-radius: 20px;
+            max-width: min(70%, 400px);
+            padding: 10px 15px;
+            border-radius: 18px;
             position: relative;
             word-wrap: break-word;
+            font-size: 0.95rem;
         }
 
         .message.received .message-content {
@@ -629,7 +694,7 @@ if ($action == 'api_end_call') {
         }
 
         .message-time {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             margin-top: 5px;
             opacity: 0.7;
         }
@@ -639,7 +704,7 @@ if ($action == 'api_end_call') {
         }
 
         .message-input-area {
-            padding: 20px;
+            padding: 15px;
             border-top: 1px solid #dee2e6;
             background: white;
         }
@@ -651,11 +716,12 @@ if ($action == 'api_end_call') {
 
         .message-input {
             flex: 1;
-            padding: 12px;
+            padding: 12px 15px;
             border: 1px solid #dee2e6;
             border-radius: 25px;
             outline: none;
             transition: all 0.3s;
+            font-size: 0.95rem;
         }
 
         .message-input:focus {
@@ -672,13 +738,19 @@ if ($action == 'api_end_call') {
             border: none;
             cursor: pointer;
             transition: all 0.3s;
+            flex-shrink: 0;
         }
 
         .send-btn:hover {
             transform: scale(1.1);
         }
 
-        /* Modal Styles */
+        /* Modal Responsive Styles */
+        .modal-dialog {
+            margin: 10px;
+            max-width: 500px;
+        }
+
         .modal-content {
             border-radius: 15px;
             border: none;
@@ -688,6 +760,7 @@ if ($action == 'api_end_call') {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-radius: 15px 15px 0 0;
+            padding: 15px;
         }
 
         .modal-header .btn-close {
@@ -696,8 +769,15 @@ if ($action == 'api_end_call') {
 
         .video-container {
             display: flex;
-            gap: 20px;
-            margin-top: 20px;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .video-container {
+                flex-direction: row;
+            }
         }
 
         .video-box {
@@ -706,11 +786,13 @@ if ($action == 'api_end_call') {
             border-radius: 10px;
             overflow: hidden;
             position: relative;
+            min-height: 200px;
         }
 
         .video-box video {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
 
@@ -722,18 +804,19 @@ if ($action == 'api_end_call') {
             background: rgba(0,0,0,0.5);
             padding: 5px 10px;
             border-radius: 5px;
+            font-size: 0.85rem;
         }
 
         .profile-edit-form {
-            padding: 20px;
+            padding: 15px;
         }
 
         .current-profile-pic {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border: 3px solid #667eea;
         }
 
@@ -756,9 +839,12 @@ if ($action == 'api_end_call') {
             position: fixed;
             top: 20px;
             right: 20px;
+            left: 20px;
+            max-width: 350px;
+            margin: 0 auto;
             background: white;
             border-radius: 10px;
-            padding: 15px 20px;
+            padding: 12px 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
@@ -767,16 +853,31 @@ if ($action == 'api_end_call') {
             animation: slideInRight 0.3s ease;
         }
 
+        @media (min-width: 768px) {
+            .toast-notification {
+                left: auto;
+                right: 20px;
+                margin: 0;
+            }
+        }
+
         @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from { 
+                transform: translateX(100%); 
+                opacity: 0;
+            }
+            to { 
+                transform: translateX(0); 
+                opacity: 1;
+            }
         }
 
         .toast-success { border-left: 4px solid #28a745; }
         .toast-error { border-left: 4px solid #dc3545; }
         .toast-info { border-left: 4px solid #17a2b8; }
 
-        @media (max-width: 768px) {
+        /* Mobile Responsive Styles */
+        @media (max-width: 767px) {
             .app-container {
                 margin: 0;
                 height: 100vh;
@@ -785,35 +886,125 @@ if ($action == 'api_end_call') {
             
             .sidebar {
                 width: 100%;
-                display: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                z-index: 10;
+                transform: translateX(0);
             }
             
-            .sidebar.active {
-                display: flex;
+            .sidebar.hide-mobile {
+                transform: translateX(-100%);
             }
             
             .chat-area {
                 width: 100%;
-                display: none;
-            }
-            
-            .chat-area.active {
-                display: flex;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                z-index: 5;
             }
             
             .back-btn {
                 display: block !important;
+                background: none;
+                border: none;
+                color: #667eea;
+                font-size: 1.2rem;
+                margin-right: 10px;
+                cursor: pointer;
+                padding: 5px;
+            }
+
+            .user-item:hover {
+                transform: none;
+            }
+
+            .call-btn span {
+                display: none;
+            }
+
+            .call-btn i {
+                margin-right: 0;
+            }
+
+            .call-btn {
+                padding: 8px 12px;
+            }
+
+            .action-buttons {
+                gap: 5px;
+            }
+
+            .message-content {
+                max-width: 85%;
+                font-size: 0.9rem;
+                padding: 8px 12px;
+            }
+
+            .auth-card {
+                padding: 20px 15px;
+            }
+        }
+
+        /* Tablet Responsive */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .sidebar {
+                width: 300px;
+            }
+
+            .call-btn span {
+                display: none;
+            }
+
+            .call-btn i {
+                margin-right: 0;
+            }
+
+            .user-item .profile-pic {
+                width: 35px;
+                height: 35px;
+            }
+
+            .user-info-text h6 {
+                font-size: 0.9rem;
             }
         }
 
         .back-btn {
             display: none;
-            background: none;
-            border: none;
-            color: #667eea;
-            font-size: 1.2rem;
-            margin-right: 15px;
-            cursor: pointer;
+        }
+
+        /* Touch-friendly improvements */
+        .user-item, 
+        .action-btn, 
+        .call-btn, 
+        .send-btn {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .user-item:active {
+            background: #e3f2fd;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
 </head>
@@ -925,16 +1116,16 @@ if ($action == 'api_end_call') {
                         <button class="back-btn" onclick="toggleSidebar()">
                             <i class="fas fa-arrow-left"></i>
                         </button>
-                        <div id="selectedUserInfo">
-                            <h5 class="mb-0">Select a user to chat</h5>
+                        <div id="selectedUserInfo" class="d-flex align-items-center">
+                            <span class="text-muted">Select a user to chat</span>
                         </div>
                     </div>
                     <div class="call-buttons" id="callButtons" style="display: none;">
                         <button class="call-btn audio-call" onclick="startCall('audio')">
-                            <i class="fas fa-phone"></i> Audio
+                            <i class="fas fa-phone"></i> <span>Audio</span>
                         </button>
                         <button class="call-btn video-call" onclick="startCall('video')">
-                            <i class="fas fa-video"></i> Video
+                            <i class="fas fa-video"></i> <span>Video</span>
                         </button>
                     </div>
                 </div>
@@ -960,7 +1151,7 @@ if ($action == 'api_end_call') {
 
     <!-- Edit Profile Modal -->
     <div class="modal fade" id="editProfileModal" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Profile</h5>
@@ -999,7 +1190,7 @@ if ($action == 'api_end_call') {
 
     <!-- Video Call Modal -->
     <div class="modal fade" id="videoCallModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
@@ -1039,6 +1230,7 @@ if ($action == 'api_end_call') {
         let localStream = null;
         let peerConnection = null;
         let callInterval = null;
+        let isMobileView = window.innerWidth <= 768;
         
         // ========== AUTH FUNCTIONS ==========
         function showLogin() {
@@ -1078,6 +1270,11 @@ if ($action == 'api_end_call') {
                     document.getElementById('dashboardSection').style.display = 'block';
                     loadUserData();
                     startPolling();
+                    
+                    // Handle initial mobile view
+                    if (isMobileView) {
+                        document.getElementById('sidebar').classList.remove('hide-mobile');
+                    }
                 } else {
                     showToast(data.error, 'error');
                 }
@@ -1166,19 +1363,19 @@ if ($action == 'api_end_call') {
                     const unreadBadge = user.unread_count > 0 ? 
                         `<span class="unread-badge">${user.unread_count} new</span>` : '';
                     const lastMessage = user.last_message ? 
-                        `<small class="text-muted d-block text-truncate">${user.last_message.substring(0, 30)}...</small>` : '';
+                        `<small class="text-muted d-block text-truncate">${escapeHtml(user.last_message.substring(0, 30))}...</small>` : '';
                     
                     const userItem = document.createElement('div');
                     userItem.className = `user-item ${currentChatUser == user.id ? 'active' : ''}`;
-                    userItem.onclick = () => selectUser(user.id, user.full_name, user.profile_pic);
+                    userItem.onclick = () => selectUser(user.id, user.full_name, user.profile_pic, user.username);
                     userItem.innerHTML = `
-                        <img src="uploads/${user.profile_pic || 'default.jpg'}" class="profile-pic">
-                        <div style="margin-left: 15px; flex: 1;">
+                        <img src="uploads/${user.profile_pic || 'default.jpg'}" class="profile-pic" alt="${user.full_name}">
+                        <div class="user-info-text">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <h6 style="margin: 0; font-weight: 600;">${user.full_name}</h6>
-                                <small>@${user.username}</small>
+                                <h6>${escapeHtml(user.full_name)}</h6>
+                                <small>@${escapeHtml(user.username)}</small>
                             </div>
-                            <div style="display: flex; align-items: center;">
+                            <div style="display: flex; align-items: center; flex-wrap: wrap;">
                                 <span class="online-status ${statusClass}"></span>
                                 <small>${user.status_text}</small>
                                 ${unreadBadge}
@@ -1193,16 +1390,15 @@ if ($action == 'api_end_call') {
             }
         }
         
-        async function selectUser(userId, userName, profilePic) {
+        async function selectUser(userId, userName, profilePic, username) {
             currentChatUser = userId;
             
             // Update UI
             document.getElementById('selectedUserInfo').innerHTML = `
-                <div class="d-flex align-items-center">
-                    <img src="uploads/${profilePic || 'default.jpg'}" class="profile-pic me-2">
-                    <div>
-                        <h5 class="mb-0">${userName}</h5>
-                    </div>
+                <img src="uploads/${profilePic || 'default.jpg'}" class="profile-pic me-2" alt="${userName}">
+                <div>
+                    <h5 class="mb-0">${escapeHtml(userName)}</h5>
+                    <small>@${escapeHtml(username)}</small>
                 </div>
             `;
             document.getElementById('messageInputContainer').style.display = 'block';
@@ -1221,8 +1417,7 @@ if ($action == 'api_end_call') {
             
             // Mobile view
             if (window.innerWidth <= 768) {
-                document.getElementById('sidebar').classList.remove('active');
-                document.getElementById('chatArea').classList.add('active');
+                document.getElementById('sidebar').classList.add('hide-mobile');
             }
         }
         
@@ -1244,13 +1439,14 @@ if ($action == 'api_end_call') {
                     const messageDiv = document.createElement('div');
                     messageDiv.className = `message ${isSent ? 'sent' : 'received'}`;
                     
+                    let messageHtml = '';
                     if (!isSent) {
-                        messageDiv.innerHTML = `
-                            <img src="uploads/${msg.profile_pic || 'default.jpg'}" class="profile-pic me-2">
+                        messageHtml += `
+                            <img src="uploads/${msg.profile_pic || 'default.jpg'}" class="profile-pic me-2" alt="${escapeHtml(msg.full_name)}">
                         `;
                     }
                     
-                    messageDiv.innerHTML += `
+                    messageHtml += `
                         <div class="message-content">
                             <div>${escapeHtml(msg.message)}</div>
                             <div class="message-time">
@@ -1259,6 +1455,7 @@ if ($action == 'api_end_call') {
                         </div>
                     `;
                     
+                    messageDiv.innerHTML = messageHtml;
                     container.appendChild(messageDiv);
                 });
                 
@@ -1332,7 +1529,6 @@ if ($action == 'api_end_call') {
                     
                     // Refresh user data
                     const userResponse = await fetch('?action=api_get_users');
-                    // Update current user display
                     location.reload(); // Simple reload to refresh all data
                 }
             } catch (error) {
@@ -1425,6 +1621,7 @@ if ($action == 'api_end_call') {
         
         // ========== UTILITY FUNCTIONS ==========
         function escapeHtml(unsafe) {
+            if (!unsafe) return '';
             return unsafe
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
@@ -1438,7 +1635,7 @@ if ($action == 'api_end_call') {
             toast.className = `toast-notification toast-${type}`;
             toast.innerHTML = `
                 <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-                <span>${message}</span>
+                <span>${escapeHtml(message)}</span>
             `;
             
             document.getElementById('toastContainer').appendChild(toast);
@@ -1449,19 +1646,37 @@ if ($action == 'api_end_call') {
         }
         
         function startPolling() {
-            // Poll for new messages and users every 2 seconds
+            // Poll for new messages and users every 3 seconds
             setInterval(() => {
                 if (currentChatUser) {
                     loadMessages(currentChatUser);
                 }
                 loadUsers();
-            }, 2000);
+            }, 3000);
         }
         
         function toggleSidebar() {
-            document.getElementById('sidebar').classList.add('active');
-            document.getElementById('chatArea').classList.remove('active');
+            document.getElementById('sidebar').classList.remove('hide-mobile');
         }
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            isMobileView = window.innerWidth <= 768;
+            
+            // Adjust view based on screen size
+            if (!isMobileView) {
+                document.getElementById('sidebar').classList.remove('hide-mobile');
+            } else if (!currentChatUser) {
+                document.getElementById('sidebar').classList.remove('hide-mobile');
+            }
+        });
+        
+        // Handle back button on mobile
+        window.addEventListener('popstate', function() {
+            if (isMobileView && currentChatUser) {
+                toggleSidebar();
+            }
+        });
         
         // Check login status on load
         window.onload = function() {
